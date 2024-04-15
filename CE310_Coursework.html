@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+<!--  #comment-guard:   (Join the two dashes below to enable auto-refreshing; remember to BREAK THEM APART AGAIN FOR THE FINAL DOCUMENT)
+- ->  <meta http-equiv="refresh" content="2" />
+<!--  #end-comment-guard -->
+
+    <title>CE310 Coursework - Spring Term 2023-2024</title>
+    <script async type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [ ['[$]','[/$]'] ], displayMath: [ ['[$$]','[/$$]'] ], skipTags: ["script","noscript","style","textarea", "code"] }});</script>
+    <script async type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <style>
+      a                 { color: #ffddaa; }
+      b                 { color: #66ff66; }
+      blockquote        { background-color: #ffffe0; font-style: italic; font-family: "Gentium"; padding: 1em; color: #000000; }
+      body              { font-family : "Helvetica", sans; font-size : 13pt; text-align : center; background-color: #222222; color : #eeeeee; }
+      h1                { margin-top: 2em; margin-bottom: 1em; }
+      h2                { margin-top: 3em; margin-bottom: 1em; }
+      h3                { margin-top: 3em; margin-bottom: 1em; font-style: italic; }
+      h4                { margin-top: 2em; margin-bottom: 1em; font-style: italic; }
+      center            { display: block; text-align: center; margin-top: 1em; margin-bottom; 1em; }
+      flex              { display: flex; justify-content: center; margin-top: 1em; margin-bottom; 1em; }
+      html              { scroll-behavior: smooth; }
+      img               { display: inline-block; }
+      li                { margin-bottom: 0.75em; margin-top: 0.5em; }
+      q                 { font-style: italic; font-family: "Gentium"; }
+      table             { border-collapse: collapse; }
+      th                { border: 1px solid white; border-top: 3px solid; border-bottom: 3px solid; padding: 0.5em; background-color: #666666; font-weight: bold; }
+      tr:nth-child(odd) { background-color: #303030; }
+      tr:nth-child(even){ background-color: #404040; }
+      td                { border: 1px solid white; padding: 0.5em; }
+      tt, pre, code     { background-color: #282833; color: #f4f4ff; font-size: 0.9em; font-family: monospace; padding: 0.25em; border-radius: 0.5em; line-height: 1.5em; overflow: auto; }
+      tt, code          { padding-left: 0.5em; padding-right: 0.5em; }
+
+      blockquote b      { color: #110011; }
+      blockquote tt     { background-color: rgba(20%, 20%, 30%, 0.25); color: #000000; font-style: normal; }
+
+      summary           { font-size: 1.2em; font-weight: bold; margin-top: 1.5em; margin-bottom: 0.5em; }
+      centralcontainer  { display : inline-block; width : 60em; margin-bottom: 5em; text-align : left; }
+      toc               { background-color: #444444; border: 1px solid black; border-radius: 1em; padding: 1em; padding-left: 2em; display: block; }
+      hint              { margin-left: 3em; }
+      div.markscontainer { display: block; text-align: right; font-size: 0.8em; }
+      div.panel         { display: inline-block; border: 2px solid black; border-radius: 0.5em; padding-left: 1em; padding-right: 1em; background-color: #444444; }
+
+
+      /* colours */
+      rc { color: #ff4444; } rb { color: #ff4444; font-weight: bold; }
+      oc { color: #ffaa66; } ob { color: #ffaa66; font-weight: bold; }
+      gc { color: #66ff66; } gb { color: #66ff66; font-weight: bold; }
+      bc { color: #66aaff; } bb { color: #66aaff; font-weight: bold; }
+      pc { color: #aa66ff; } pb { color: #aa66ff; font-weight: bold; }
+    </style>
+  </head>
+
+  <body>
+    <centralcontainer>
+
+      <!-- ============================ -->
+      <!-- Start of assessment document -->
+      <!-- ============================ -->
+
+      <!-- Page "Header" -->
+      <flex>
+        <div style="width:50%; text-align:left;">CE310: ‘Evolutionary Computation and Genetic Programming’<p style="margin-top: 0.5em;">Coursework (Parts 1 and 2)</p></div>
+        <div style="width:20%;"></div>
+        <div style="width:30%; text-align:right;">University of Essex, School of CSEE<p style="margin-top: 0.5em;">Tasos Papastylianou,<br>Spring Term 2023-2024</p></div>
+      </flex>
+
+      <h1><a href="#" style="text-decoration: none;">CE310 Coursework</a></h1>
+
+      <hr>
+      <toc>
+        <ul>
+
+          <li>
+            <a href="#Overview"> Overview </a>
+          </li>
+
+          <li>
+            <a href="#Part1"> Part 1 - Implementing basic Evolutionary Algorithms </a>
+            <ul>
+
+              <li> <a href="#Part1_AssignmentObjective"> Assignment Objective </a> </li>
+
+              <li> <a href="#Part1_Task1"> Task 1 - Implement a steady-state binary GA library </a> <span style="margin-left: 2em;">[12.5 marks]</span> </li>
+
+              <li> <a href="#Part1_Task2"> Task 2 - Solve combinatorial optimisation problems </a> <span style="margin-left: 2em;">[37.5 marks]</span> </li>
+                <ul>
+
+                  <li> <a href="#Part1_Task2_Problem1"> Problem 1: ASCII Art </a> </li>
+                  <li> <a href="#Part1_Task2_Problem2"> Problem 2: Hyper-parameter Analysis </a> </li>
+                  <li> <a href="#Part1_Task2_Problem3"> Problem 3: Fitness functions </a> </li>
+                  <li> <a href="#Part1_Task2_Problem4"> Problem 4: The Santa Claus Riddle </a> </li>
+                </ul>
+              </li>
+
+              <li> <a href="#Part1_Notes_and_guidance" style="margin-top: 1em;"> Notes and guidance on Part 1 </a> </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#Part2">Part 2 - Genetic Programming mini-project</a> <span style="margin-left: 2em;">[50 marks]</span>
+            <ul>
+              <li> <a href="#Part2_AssignmentObjective"> Assignment Objective </a> </li>
+              <li> <a href="#Part2_TaskDescription"> Task Description </a> </li>
+              <li> <a href="#Part2_MarkingCriteria"> Marking Scheme for Part 2 </a> </li>
+              <li> <a href="#Part2_Notes_and_guidance"> Notes and guidance on Part 2 </a> </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#ProblemsEtc">Problems with the assignment, Late Submissions, Extenuating Circumstances, Academic Offenses, etc.</a> </li>
+          </li>
+
+        </ul>
+      </toc>
+      <hr>
+
+
+      <!-- -------- -->
+      <!-- Overview -->
+      <!-- -------- -->
+
+      <h2 id="Overview">Overview.</h2>
+
+      <p> The coursework consists of two parts, each carrying 50 marks (i.e. a
+        total of 100 marks for both parts).
+
+        <br>
+        This coursework is worth 40% of the module overall (the other 60% being
+        exams).
+
+        <ul>
+
+          <li> Part 1 involves coding your own Genetic Algorithm framework in
+            Python, and using it to solve a small number of optimisation
+            problems, documenting and discussing your work along the way.
+          </li>
+
+          <li> Part 2 is a mini-project / research task, which asks you to
+            perform computational Genetic Programming experiments in Python, and
+            produce a report that discusses the results obtained.
+          </li>
+
+        </ul>
+      </p>
+
+      <p> This document was <a href="https://moodle.essex.ac.uk/course/view.php?id=3666&section=3#assignment">released on Moodle</a>,
+        on 2024-01-29 (Week 18).
+      </p>
+
+      <p> The deadline for submitting the coursework on FASER" is 2024-03-08
+        (Week 23).<br><rb>Note: deadline is at 2pm, not midnight!</rb>
+      </p>
+
+      <p> <b>Submission:</b> please submit all your work as a single zip file on
+        <a href="https://faser.essex.ac.uk">FASER</a> by the above deadline.
+        Inside the zipfile, put all Part 1 related material (i.e. code and
+        documentation / reports) into a folder called <tt>Part1</tt>, and all
+        Part 2 related material in a folder called <tt>Part2</tt>. Please also
+        provide a <tt>requirements.txt</tt> file with your submission, so that I
+        can confirm what python package versions you used in case of problems;
+        you can obtain this from <tt>pip</tt> via the <tt>freeze</tt> command.
+      </p>
+
+      <p> If you have any questions, feel free to contact me <a
+        href="mailto:tasos.papastylianou@essex.ac.uk">by email</a>, or,
+        preferably, if you think your question may be of interest/benefit to
+        your colleagues, please feel free to post it on the <a
+        href="https://moodle.essex.ac.uk/mod/forum/view.php?id=1203776">Help
+        Forum on Moodle</a>.
+      </p>
+
+
+      <!-- ------ -->
+      <!-- Part 1 -->
+      <!-- ------ -->
+
+      <h2 id="Part1">Part 1 - Implementing basic Evolutionary Algorithms</h2>
+
+      <h3 id="Part1_AssignmentObjective">Assignment Objective</h3>
+
+      <p> The objective of part 1 is to familiarize yourself with evolutionary
+        algorithms; specifically, problem solving using <b>genetic
+        algorithms</b> (GAs).
+      </p>
+
+
+      <!-- Task 1 -->
+
+      <h3 id="Part1_Task1"> Task 1 - Implement a steady-state binary GA library  </h3>
+
+
+      <p> Design and implement the core functions needed for <b>a steady-state
+        binary GA</b> and use the implemented GA to solve combinatorial
+        optimisation problems (see below for more details). Software
+        architecture, design and development decisions are entirely up to you
+        (as long as it's in <rb>Python</rb>, and in the form of a
+        <rb>package</rb> or <rb>module</rb> that can be subsequently imported
+        and used in your code). Select and implement <b>crossover</b>,
+        <b>mutation</b>, and <b>selection</b> operators appropriate for the
+        problems to be solved. Select appropriate standard values for the
+        hyper-parameters (population size, generations, crossover rate, etc.).
+      </p>
+
+      <div class="markscontainer"><div class="panel"><p>Marking criteria: code and code documentation [12.5 marks]</p></div></div> <br><br>
+
+      <blockquote style="background-color: #00bbff;"> Note that there is no need
+        to install any additional or specialised libraries for this task.
+        Software libraries included in the standard Python installation should
+        be more than sufficient. Having said that, you might want to use things
+        like <tt>Matplotlib</tt> to visualise results as graphs, or
+        <tt>NumPy</tt> if you plan to implement more efficient array operations,
+        etc.
+      </blockquote>
+
+      <blockquote style="background-color: #ffaa44;">
+        <b>> Not sure how to start? Little or no experience with Python?</b>
+
+        <p> Note that in the lecture we will be going through examples
+          discussing possible implementation details for this kind of framework.
+          Feel free to refer to code examples from class for inspiration /
+          reference; (in particular any 'main' functions or equivalent parts of
+          the code, which implement the main logic of a GA system).
+        </p>
+
+          However, please do not just copy verbatim, since copy-pasting and
+          then trying to make in-place alterations to code intended for specific
+          problems is rarely a good way to attack new problems. Instead, study
+          the logic of the code, and try to create your own similarly.
+      </blockquote>
+
+
+
+      <!-- Task 2 -->
+
+      <br><br>
+      <h3 id="Part1_Task2"> Task 2 - Solve combinatorial optimisation problems </h3>
+
+      <p> You will now need to write code that imports your module (or package)
+        from Task 1, and uses it appropriately to solve the optimization
+        problems below.
+      </p>
+
+      <p> Additionally, you must make observations about GA performance
+        and hyper-parameters, answer questions about the various problems and
+        make observations about GA performance and hyperparameter settings for
+        each problem. <bc>Observations to be made/questions to be answered are
+        written in blue.</bc>):
+      </p>
+
+
+      <!-- Problem 1 -->
+
+      <br><br>
+      <h4 id="Part1_Task2_Problem1"> Problem 1: ASCII Art </h4>
+
+      <ul>
+        <li>
+          <p> Test your code above by using a binary array or bitstring
+            representation (<b>chromosome</b>) and evolve the representation to
+            match a given ASCII art image, such as the one in Fig. 1.
+          </p>
+
+          <div style="margin-top: 4em; margin-bottom: 4em;">
+            </code>
+              <flex><div style="font-size: 1.6em;">
+              <span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><br>
+              <span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><br>
+              <span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><br>
+              <span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><br>
+              <span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #444488;">0</span><span style="color: #aaffaa;">1</span><span style="color: #444488;">0</span><br>
+              </div></flex>
+              <flex><div style="font-size: 0.8em;"> Fig. 1. ASCII art 'image' example. The 1s form the letters GA (coloured here for extra visual effect). </div></flex>
+            </code>
+          </div>
+
+          <p> The specification for this kind of ASCII art is as follows: a text
+            block where all rows have exactly the same number of columns (i.e.
+            characters), and where the only valid characters are the symbols
+            <tt>0</tt> and <tt>1</tt> (except also for the impicit newline
+            characters <tt>\n</tt> at the end of each column). You may use the
+            ASCII art textblock from Fig 1., or feel free to create your own.
+          </p>
+
+          <blockquote style="background-color: #aaaa88;"> Hint: Fig 1. is not
+            actually an <tt>&lt;img&gt;</tt> element, it's just colored text.
+            Feel free to copy/paste it directly into your code, e.g. inside a <a
+            style="color: #222266;"
+            href="https://stackoverflow.com/q/23361171/4183191">triple-quoted
+            string</a>.
+          </blockquote>
+
+          <br>
+
+          <p> Each line in the ASCII text block represents a row of pixels.
+            Multiple lines of <tt>0</tt>s and <tt>1</tt>s need to be
+            concatenated to form a complete binary representation
+            (<b>genotype</b>) of the 2-D ASCII art matrix (<b>phenotype</b>).
+            The opposite operation is needed to convert genotypes evolved by the
+            GA into phenotypes. To evolve solutions, use the following fitness
+            function:
+          </p>
+
+          <p style="margin-top: 3em; margin-bottom: 3em;">
+            [$$] \begin{array}{l} \displaystyle f( I ) = \sum_{i \in I} ~g(i; ~ I,A) \\[1em] \text{, where:}~~~ g(i; ~ I, A) = \left \{ \begin{array}{l}  1, ~~\text{if}~~ I(i) = A(i) \\ 0, ~~\text{if}~~ I(i)\neq A(i) \end{array} \right . \end{array} [/$$]
+          </p>
+
+          <p>
+           (or, in pseudocode):
+          </p>
+
+  <pre><code>
+  fitness( I ) = sum( [I(i) == A(i)] forall i in I )
+  </code></pre>
+
+          <p> where <tt>I</tt> is an individual to be evaluated, <tt>A</tt> is
+            the target ASCII-art binary pattern we want to evolve and <tt>i</tt> is the
+            i<sup>th</sup> gene (bit) in the individual.
+          </p>
+
+         <div class="markscontainer"><div class="panel"> <p> Marking criteria: Code and code documentation [2 marks] </p></div></div> <br><br>
+        </li>
+
+        <li>
+
+          <p> Perform different GA runs, i.e., execute your code several times, and
+            evolve individuals by firstly <b>maximising</b> and secondly
+            <b>minimising</b> the above fitness function.  <bc>What solutions do you expect when maximising and
+            minimising the fitness function?</bc> (Marking criteria: Observations - 0.5/2.5 marks)
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Observations [0.5 marks] </p></div></div> <br><br>
+
+        </li>
+
+      </ul>
+
+
+      <!-- Problem 2 -->
+
+      <h4 id="Part1_Task2_Problem2"> Problem 2: Hyper-parameter Analysis </h4>
+
+      <ul>
+        <li>
+
+          <p> To get a better picture about the GA performance, experiment with the
+            GA <b>hyper-parameters</b> such as <b>population size</b>,
+            <b>generations</b>, <b>crossover</b> <b>rate</b> and <b>mutation</b>
+            <b>rate.</b> Also explore hyper-parameters (if any) of the
+            <b>selection</b> <b>operator</b> that you decided to use. Start with
+            standard values that we discussed in the lectures.
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Code and code documentation [3 marks] </p> </div></div> <br><br>
+        </li>
+
+
+        <li>
+
+          <p> <bc> Briefly describe and discuss the behaviour of the GA based on
+            the selected hyper-parameters.  Which parameter combination achieves
+            optimal performance? Why do you think is the parameter combination
+            successful? Are there any drawbacks when using the identified
+            parameter combination? </bc>
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Observations and discussion [7 marks] </p> </div></div> <br><br>
+        </li>
+
+      </ul>
+
+
+      <!-- Problem 3 -->
+
+      <h4 id="Part1_Task2_Problem3"> Problem 3: Fitness functions </h4>
+
+      <p> Generally speaking, a GA's task is to find the minimum or maximum of a
+        fitness function, under the assumption that this fitness function is
+        useful and appropriate for characterising the problem at hand. However,
+        finding suitable fitness functions that are tractable and can
+        characterise a problem well can be a challenge.  In general, we do not
+        know the structure (i.e., the shape of the ‘graph’) of the fitness
+        function; e.g. in principle, we cannot know in advance how many local or
+        global minima and maxima it has.
+      </p>
+
+      <p> In this task we explore the impact of different representations and
+        fitness functions (see below) on the performance of your GA. Remember
+        that optimization involves finding the inputs [$] \mathbf{x} = (x_1,
+        \dots, x_N) [/$] to a fitness (or more generally objective) function [$]
+        f( \mathbf{x} ) [/$] that result in the minimum or maximum output of [$]
+        f ( \mathbf{x} ) [/$]. To solve this task, you need to define an
+        appropriate representation for [$] x_i [/$] (e.g., binary, real-valued
+        or mixed) and then evolve this representation (by adapting or creating
+        binary or real-valued genetic operators as needed) to find the global
+        minimum or maximum of [$] f ( \mathbf{x} ) [/$].
+      </p>
+
+      <ul>
+
+        <li>
+
+
+          <p> Select <b>one</b> single-objective and <b>one</b> constrained
+            optimisation function from <a href="https://en.wikipedia.org/wiki/Test_functions_for_optimization">https://en.wikipedia.org/wiki/Test_functions_for_optimization</a>
+            and implement them as your fitness functions. Then run simulations
+            to find the minimum (or maximum, depending on the problem) of the
+            function.
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Code and code documentation [5 marks] </p> </div></div> <br><br>
+
+        </li>
+
+        <li>
+
+          <p> <bc >Briefly describe and discuss the behaviour of the GA. Which
+            representation did you use? Did the GA find the minimum or maximum?
+            Did you have to adjust the hyper-parameters? How precise is the
+            solution? How can you improve the solution? </bc>
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Observations and discussion [5 marks] </p> </div></div> <br><br>
+
+        </li>
+
+      </ul>
+
+
+      <!-- Problem 4 -->
+
+      <h4 id="Part1_Task2_Problem4"> Problem 4: The Santa Claus Riddle </h4>
+
+      <p> Consider the following equation: </p>
+
+      <p style="margin-top: 3em; margin-bottom: 3em;">
+        [$$] \begin{array}{lllllll}
+                 &   & S & A & N & T & A \\
+               - &   & C & L & A & U & S \\[0.5em]
+               \hline
+               = &   &   & X & M & A & S \\
+             \end{array}
+        [/$$]
+      </p>
+
+      <p> There exists a (non-unique) mapping [$] \mathcal L \mapsto \mathcal D
+        [/$] from letters in the set [$] \mathcal L = \{ A, C, L, M, N, S, T, U,
+        X \} [/$] to digits in the set [$] \mathcal D = \{ 0 \dots 9 \} [/$],
+        such that the above equation holds true, and such that no two letters
+        are mapped to the same digit*
+      </p>
+
+      <p style="font-size: 0.8em;"> *(in mathematical terms, we would say that [$]
+        \mathcal L \mapsto \mathcal D [/$] is <a
+        href="https://en.wikipedia.org/wiki/Injective_function"><i>injective</i></a>).
+      </p>
+
+      <p style="margin-top: 3em;"> E.g. if the mapping [$] \mathcal L \mapsto \mathcal D [/$] was as follows: </p>
+
+      <p style="font-size: 0.8em;">
+        [$$]
+        \left \{
+        \begin{array}{ccc}
+        A & \mapsto & 1 \\
+        C & \mapsto & 2 \\
+        L & \mapsto & 3 \\
+        M & \mapsto & 4 \\
+        N & \mapsto & 5 \\
+        S & \mapsto & 6 \\
+        T & \mapsto & 7 \\
+        U & \mapsto & 8 \\
+        X & \mapsto & 9
+        \end{array}
+        \right \}
+        [/$$]
+      </p>
+
+      <p> then this would have resulted in the following equation: </p>
+
+      <p>
+        [$$] \begin{array}{lllllll}
+                 &   & 6 & 1 & 5 & 7 & 1 \\
+               - &   & 2 & 3 & 1 & 8 & 6 \\[0.5em]
+               \hline
+               = &   &   & 9 & 4 & 1 & 6 \\
+             \end{array}
+        [/$$]
+      </p>
+
+      <p> However, this is equation is clearly false, so this isn't the right mapping. </p>
+
+      <ul>
+
+        <li>
+
+          <p> Solve this problem using a GA approach. You will have to decide on
+            an appropriate representation for the mapping, and an appropriate
+            fitness function.
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Code and code documentation [6 marks] </p> </div></div> <br><br>
+
+        </li>
+
+        <li>
+
+          <p> <bc> Discuss your choice of representation and fitness function. In
+            your discussion, make sure you cover the following points: </bc>
+            <ul>
+
+              <li> <bc> Did you try to ensure 'uniqueness' in the letter-to-digit
+                mappings in your representation? If so, how? If not, why? </bc>
+              </li>
+
+              <li> <bc> One possible fitness function is [$$] f( \mathcal L
+                \mapsto \mathcal D ) = \Biggl | ~ \Bigl ( SANTA-CLAUS \Bigr ) -
+                XMAS ~ \Biggr | [/$$] Is this a good fitness function? Why / why
+                not? How could it be improved? If you used a different fitness
+                function, discuss (and <i>show!</i>) how it compares to this
+                one, and why you think yours might be a more appropriate fitness
+                function for this problem. </bc>
+              </li>
+          </p>
+
+          <div class="markscontainer"><div class="panel"> <p> Marking criteria: Observations and discussion [9 marks] </p> </div></div> <br><br>
+
+        </li>
+
+      </ul>
+
+
+      <!-- Notes and guidance -->
+
+      <h3 id="Part1_Notes_and_guidance" style="margin-top: 1em;"> Notes and guidance on Part 1 </h3>
+
+      <blockquote style="background-color: #ffaadd;">
+
+        <h3 style="margin-top: 1em;"> Notes and guidance on Part 1 (GA implementation and optimization problems)</h3>
+
+        <ul>
+
+          <li>
+            <u><b>Clarification of Marking criteria for Part 1:</b></u><br>
+
+            <ul>
+              <li> <b>Code and code documentation:</b> To get
+                full marks as listed above, the code must execute without
+                errors, and reflect source code of high quality, i.e. properly
+                documented via suitable function/class docstrings, the right
+                amount of insightful, explanatory comments and sections,
+                self-documenting names, meaningful code structure(s), and being
+                a maintainable/readable (to an English reader!) codebase in
+                general.
+              </li>
+
+              <li>
+                <b>Discussion-based parts:</b> You must critically answer all
+                questions posed in the various problems, make observations about
+                GA performance and influence of hyperparameter settings, and
+                discuss each problem, providing useful insights as necessary.
+              </li>
+            </ul>
+          </li>
+
+          <li style="margin-top: 2em;">
+            <u><b>What must be submitted to FASER?</b></u><br>
+
+            Please submit all your work as a single zip file; the zip file
+            should split the work into two folders, appropriately labelled
+            <tt>Part1</tt> and <tt>Part2</tt>. Each folder should contain the
+            related material (i.e. code and documentation / reports) in a manner
+            that makes it easy and intuitive for the assessor to discover your
+            work and run your code. Together with your code, please also provide
+            a <tt>requirements.txt</tt> file (such as the one that can be
+            generated via the <tt>pip freeze</tt> command), so that I can
+            confirm what python package versions you used in case of problems.
+            Your reports can be produced in any format you prefer and are
+            comfortable with: .docx, .odt, .pdf, .html, .md/markdown etc are all
+            fine, as long as I'm able to read them and they are
+            structured appropriately.
+
+            <p> <b style="font-size: 1.1em;">Note:</b> in previous years,
+              previous module supervisors expected submissions in the form of a
+              jupyter notebook. Presumably, this was to encourage a “<a
+              style="color: #222266;"
+              href="http://www.literateprogramming.com/index.html">literate
+              programming</a>” approach to your work, to encourage you to think
+              “out-loud” and document your code as you go along. However, I am
+              not a big fan of jupyter notebooks, as I feel they encourage bad
+              programming habits, and so I discourage their use this year.
+              Nevertheless, <b style="font-size: 1.1em;">do</b> by all means
+              feel free to use appropriate comment headers / sections in your
+              code to explain things in a “literate programming” fashion if you
+              so wish (and indeed, insightful explanations in-code, alongside
+              clean, self-documenting practices makes for excellent code!). Code
+              and reports will be marked independently as per the marking
+              criteria; but, if you do adopt a ‘literate programming’ style in
+              your code, don't worry about duplicating information in the report
+              that you have already discussed in the code; as long as both stand
+              in their own right as independent pieces of work and the extent of
+              the information provided is appropriate for each particular
+              context, then any duplication of content between code and report
+              will not be penalised. On the other hand, naturally, don't rely on
+              in-code documentation for things that will be expected (according
+              to the marking criteria) to be found in the report!
+            </p>
+          </li>
+
+          <li style="margin-top: 2em;">
+            <u><b>How to start?</b></u><br>
+
+            This depends on how familiar you are with algorithmic thinking
+              and on your coding skills. A good way to start is to make sure
+              that the task is clear. This includes reading the whole assignment
+              and making sure you are familiar with the content discussed in
+              units 1-3.
+
+            <p> Check the learning material on Moodle, use resources available
+              at the university library or use internet search engines to find
+              relevant material. Of course, asking questions during the lectures
+              and classes is another good way to get answers and have a good
+              discussion. I would particularly encourage you to use the <a
+              style="color: #222266;"
+              href="https://moodle.essex.ac.uk/mod/moodleoverflow/view.php?id=1203777">MoodleOverflow</a>
+              facility, to engage your peers in discussion. You can assume that
+              if you struggle, your fellow students will also struggle. So, I
+              encourage you to ask questions and engage in constructive
+              conversations.
+            </p>
+
+            <p> Once it is clear what you need to do start with the planning.
+              You can start top-down, i.e., plan the development by staring from
+              the general Evolutionary Algorithm and then implement the
+              different functions, or bottom-up, i.e., implement basic
+              functionality and then combine everything. Be systematic and add
+              functionality step-by-step. Also, be sure to define the way you
+              want to represent binary arrays/string before implementing the
+              genetic operators.
+            </p>
+
+            <p> Keep in mind that there are many ways how to address and
+              complete the tasks. There is no single correct or best way to do
+              this. Primarily this assignment serves as a learning opportunity;
+              learning means making errors in a safe environment, and thinking
+              how to correct them. So above all, start this process <b
+              style="font-size: 1.2em; color: #aa0000;">early(!)</b>, so that
+              you have time to try things and make mistakes, and have still have
+              time to learn from them, comfortably start again and make
+              progress!
+            </p>
+
+          </li>
+
+        </ul><br>
+
+      </blockquote>
+
+      <br>
+      <flex><img src="data:image/png;base64,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bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6MjE1MWI0ZGYtMjUxMy00MzE1LTk4NTktZDFlODk2NWRhMTcwIgogICB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdhMWJkYzYxLWU5NmQtNDJmMy05OWYwLTBkODQwYzQzMDAwNCIKICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjljYTY0YTBiLWQ2MGYtNDY4MC05YWE3LWMyZjRkZjk2ZTc1NiIKICAgZGM6Rm9ybWF0PSJpbWFnZS9wbmciCiAgIEdJTVA6QVBJPSIyLjAiCiAgIEdJTVA6UGxhdGZvcm09IkxpbnV4IgogICBHSU1QOlRpbWVTdGFtcD0iMTcwNDE1MjczMTUwMjY0MiIKICAgR0lNUDpWZXJzaW9uPSIyLjEwLjMwIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIgogICB4bXA6Q3JlYXRvclRvb2w9IkdJTVAgMi4xMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjBkNmM5NTQxLTQ2ZDktNDc2ZS1hZmEyLTY1NGY0YjliYTA1MiIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR2ltcCAyLjEwIChMaW51eCkiCiAgICAgIHN0RXZ0OndoZW49IjIwMjQtMDEtMDFUMjM6NDU6MzErMDA6MDAiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg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" alt="[Floral Divider]"></flex>
+
+
+      <!-- ------ -->
+      <!-- Part 2 -->
+      <!-- ------ -->
+
+      <h2 id="Part2">Part 2 - Genetic Programming mini-project </h2>
+
+      <h3 id="Part2_AssignmentObjective">Assignment Objective </h3>
+
+      <p> The objective of part 2 is to familiarize yourself with <b>genetic
+        programming</b> (GP) by running several experiments (symbolic regression
+        problems, see the teaching material on Moodle or <a
+        href="https://en.wikipedia.org/wiki/Symbolic_regression">Wikipedia</a>
+        for more details).
+      </p>
+
+      <p> While part 1 focused on the implementation of the basic algorithms to
+        gain insights in the underlying mechanisms of evolutionary computation,
+        part 2 focuses on <b>enhancing</b> your <b>research</b> and <b>analysis skills</b>. More
+        precisely, like a <b>scientist</b> you will <b>collect</b> and <b>analyse</b> empirical <b>data</b>,
+        <b>summarise</b>, and <b>interpret</b> your <b>results</b>, and based on the <b>evidence</b>
+        gathered draw <b>conclusions</b>.
+      </p>
+
+      <h3 id="Part2_TaskDescription"> Task Description </h3>
+
+      <p> You are asked to perform a series of GP runs and describe the results
+        of your runs in a report. In your experiments you will need to use GP in
+        different configurations (i.e., problems and parameters). Since GP is a
+        stochastic searcher, you will see that performance varies from run to
+        run. Therefore, to draw your conclusions, you should ensure you perform
+        <rb style="font-size: 1.1em;">at least 10 runs</rb> in each
+        configuration. The aim of the experiments is to get an intuition on how
+        the population and tournament size impacts on fitness and size of the
+        evolved programs for different symbolic regression problems, and on the
+        computational complexity (based on how often the fitness function is
+        being executed). Use the following parameter configurations:
+      </p>
+
+      <ul>
+        <li>
+          <p> <b>Problems:</b> </p>
+          <p>
+            <table style="margin-left: 2em;">
+              <tr><td> Problem 1: </td><td> [$$] p_1 (x) = 5x^5 + 4x^4 + 3x^3 + 2x^2 + x [/$$] </td></tr>
+              <tr><td> Problem 2: </td><td> [$$] p_2 (x) = 4 \sin \left ( \frac {5 \pi}{4} x \right ) [/$$] </td></tr>
+              <tr><td> Problem 3: </td><td> [$$] p_3 (x) = G(x; -1.7, 0.5 ) + 7 G(x; 1.3, 0.8), [/$$] where [$] G [/$] is the Gaussian function:<span style="margin-left: 2em;"></span> [$] \displaystyle G(x; \mu, \sigma) = \frac {1}{ \sigma \sqrt{2 \pi} } \exp \left \{ -\frac{1}{2} \left ( \frac{ x - \mu }{ \sigma } \right )^2 \right \} [/$] </td></tr>
+              <tr><td> Problem 4: </td><td> [$$] p_4 (x) = ( \text{create your own function}) [/$$] </td></tr>
+            </table>
+          </p>
+
+          <p> Select <rb><i><span style="font-size: 1.4em;">two</span></i></rb> of
+            the above problems (i.e. two different [$] p_i [/$]'s) and create
+            symbolic regression data sets generated by associating the sixty-five
+            [$] x [/$] values between approximately [$] -\pi [/$] and [$] +\pi [/$]
+            in steps of [$] \pi / 32 [/$] (i.e. <span style="font-size: 0.8em;"> [$] -3.14159, -3.04341, -2.94524
+            ~\dots~3.14159[/$]</span>) to sixty-five corresponding target values [$] t [/$]
+            computed via the formula [$] t = p_i (x) [/$].
+          </p>
+
+        </li>
+
+        <li>
+          <p> <b>Population size:</b> </p>
+          <hint> <b>500</b> vs. <b>2000</b> </hint>
+        </li>
+
+        <li>
+          <p> <b>Tournament size:</b> </p>
+          <hint> <b>2</b> vs. <b>5</b> </hint>
+        </li>
+
+        <li>
+          <p> Set the other parameters of the GP to the following values:
+            <ul>
+              <li> generations = 30 </li>
+              <li> crossover rate = 0.7 </li>
+              <li> mutation rate = 0.3 </li>
+            </ul>
+          </p>
+        </li>
+
+      </ul>
+
+      <blockquote style="background-color: #88ddff;"> Note that, analysing two
+        problems with two population sizes and two tournament sizes results in
+        <b>eight</b> combinations; consequently you need to run <b>eight</b>
+        different experiments.
+      </blockquote>
+
+      <p> Once the runs are completed, analyse the data provided by the system
+        and make sure you look carefully at the output produced in different
+        runs. Is the GP maximising or minimising the fitness? Then <rb
+        style="font-size: 1.1em;">summarize the results in form of a table</rb>,
+        reporting statistics obtained in different configurations when solving
+        your chosen problem. Please select statistics you think are most
+        appropriate to characterize the behaviour of the GP.
+      </p>
+
+      <p> Identify the parameter configuration that worked best for each problem
+        and then do a further set of 10 runs with each configuration chosen.
+      </p>
+
+      <p> You are now ready to start writing your report. In your report
+        explicitly address the following questions:
+
+        <ul> <bc>
+
+          <li> Did GP show some change in behaviour as the problem, population
+            size and tournament size were changed? Describe what happened.
+          </li>
+
+          <li> Can you provide a tentative explanation for the behaviours you
+            have observed?
+          </li>
+
+          <li> Was the behaviour represented by the statistics (e.g., averages)
+            in one configuration typical of all runs in that configuration or
+            did you see ample variations in behaviour across the runs done with
+            a configuration? If there were variations, can you explain why these
+            happen?
+          </li>
+
+          <li> Explain what criteria you used to identify the best parameter
+            configuration for the two problems.
+          </li>
+
+          <li> Were the statistics you got in the extra 10 runs performed with
+            your chosen optimal configuration for each problem consistent with
+            the statistics you obtained in the first batch of runs? If not, what
+            do you think happened and how can we find out what's the best
+            configuration?
+          </li>
+
+          <li> What conclusions can you draw about the suitability of GP to
+            solve the given problems?
+          </li>
+
+          <li> Feel free to produce and report additional plots or tables
+            (possibly including one or two typical runs) if this can provide
+            support for your explanations.
+          </li>
+
+        </bc> </ul>
+      </p>
+
+      <blockquote style="background-color: #ff88aa; margin-top: 2em;"> Note: This is a research focused
+        assignment. This means you are encouraged to do further analyses and
+        generate additional evidence that supports your conclusions. This will
+        allow you to create a strong and conclusive report.
+      </blockquote>
+
+      <br><br>
+
+
+      <!-- Marking Criteria -->
+
+      <h3 id="Part2_MarkingCriteria"> Marking Scheme for Part 2 </h3>
+
+      <p> Part 2 is worth a total of 50 marks. These will be divided as follows:
+
+        <table>
+          <tr><td> Structure and presentation of the report (including division into sections, formatting, diagrams, etc.) </td><td>[5 marks]</td></tr>
+          <tr><td> Accurate description of GP's behaviour in the runs performed (clear presentation of the results)  </td><td>[10 marks]</td></tr>
+          <tr><td> Depth and correctness of the analysis of the runs and plausibility of the explanations provided (Discussion of the results) </td><td>[15 marks]</td></tr>
+          <tr><td> Concluding section, including summary of what has and hasn't been learnt and possible further explorations </td><td>[10 marks]</td></tr>
+          <tr><td> Supplementary analyses and further experiments </td><td>[10 marks]</td></tr>
+        </table>
+
+      <br><br>
+
+
+      <!-- Part 2 Notes -->
+
+      <h3 id="Part2_Notes_and_guidance" style="margin-top: 1em;"> Notes and guidance on Part 2 </h3>
+
+      <blockquote style="background-color: #ffaadd;">
+
+        <h3 style="margin-top: 1em;"> Notes and guidance on Part 2 (mini-project) </h3>
+
+        <ul>
+
+          <li>
+
+            <u><b>Own code or third-party GP toolbox?</b></u><br>
+
+            If you enjoy coding and want to get a deeper understanding of GP,
+              then you can modify the representation and crossover/mutation
+              operators of your Genetic Algorithm code and implement a GP system
+              for symbolic regression yourself. Alternatively, you can use the
+              third-party DEAP Python GP toolbox to run the experiments. Below I
+              provide some guidance on how to use the toolbox. Please check the
+              online documentation if you have further questions.<br> <span
+              style="color: #aa0000; font-weight: bold; font-size: 1.1em;">Note,
+              that the choice of library does not impact on the mark!</span>
+              <br><br>
+          </li>
+
+          <li>
+            <u><b>Guidance for users of the <tt>DEAP</tt> python package</b></u><br style="margin-bottom: 0.5em;">
+
+            The file <tt>CE310-GP-Mini-Project.py</tt> shows
+              an example of how to run the experiments. This can be found in the
+              Assessment Information card on Moodle, below the assignment
+              specification.
+
+            <p> Please familiarize yourself with the code
+              and start a set of runs (the default parameters are fine) and see
+              what happens. The code generates a log that records data related
+              to fitness, and the size of the evolved programs.
+            </p>
+
+            <p> The parameters can be adjusted in the <tt>PARAMETERS</tt>
+              section of the code, near the top of the module. The code also
+              provides you an example on how to create functions to create
+              target values. Feel free to change and adapt the code as needed
+              and implement the functions. For more information, please refer to
+              the <a style="color: #222266;"
+              href="https://deap.readthedocs.io/en/master/"><tt>DEAP</tt>
+              package documentation online</a>.
+            </p><br>
+
+          </li>
+
+          <li>
+
+            <u><b>What must be submitted to FASER?</b></u><br>
+
+            Submit your code and the report <a style="color: #222266;"
+            href="#Part1_Notes_and_guidance">as discussed previously for Part
+            1</a>. For the Part 2 report, please be short and concise, and <b>do
+            not exceed 600 words</b> (not including Table or Table/Figure
+            captions). <br><br>
+
+          </li>
+
+        </ul>
+
+      </blockquote>
+
+      <br>
+      <flex><img src="data:image/png;base64,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bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6MjE1MWI0ZGYtMjUxMy00MzE1LTk4NTktZDFlODk2NWRhMTcwIgogICB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdhMWJkYzYxLWU5NmQtNDJmMy05OWYwLTBkODQwYzQzMDAwNCIKICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjljYTY0YTBiLWQ2MGYtNDY4MC05YWE3LWMyZjRkZjk2ZTc1NiIKICAgZGM6Rm9ybWF0PSJpbWFnZS9wbmciCiAgIEdJTVA6QVBJPSIyLjAiCiAgIEdJTVA6UGxhdGZvcm09IkxpbnV4IgogICBHSU1QOlRpbWVTdGFtcD0iMTcwNDE1MjczMTUwMjY0MiIKICAgR0lNUDpWZXJzaW9uPSIyLjEwLjMwIgogICB0aWZmOk9yaWVudGF0aW9uPSIxIgogICB4bXA6Q3JlYXRvclRvb2w9IkdJTVAgMi4xMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjBkNmM5NTQxLTQ2ZDktNDc2ZS1hZmEyLTY1NGY0YjliYTA1MiIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR2ltcCAyLjEwIChMaW51eCkiCiAgICAgIHN0RXZ0OndoZW49IjIwMjQtMDEtMDFUMjM6NDU6MzErMDA6MDAiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg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" alt="[Floral Divider]"></flex>
+      <br>
+
+      <blockquote id="ProblemsEtc" style="background-color: #ff2222;">
+        <p>
+          <ul>
+            <li>
+              <u><b>Problems:</b></u><br>
+
+              If any general problems arise in the assignment, please start a
+                thread on the <a
+                href="https://moodle.essex.ac.uk/mod/forum/view.php?id=1203776">Help
+                Forum</a> or <a
+                href="https://moodle.essex.ac.uk/mod/moodleoverflow/view.php?id=1203777">MoodleOverflow</a>
+                on Moodle as appropriate. For specific/personal inquiries,
+                please use the academic support hour or <a
+                href="mailto:tasos.papastylianou@hotmail.com">email me</a>.
+            </li>
+
+            <li style="margin-top: 2em;">
+              <u><b>Late Submissions, Extenuating Circumstances, Academic Offenses, etc:</b></u><br>
+
+              Please refer to the Students’ Handbook for details regarding the
+              Departmental policy for the above topics. Note that the module
+              supervisors are <span style="color: #ffdddd; font-size: 1.2em;
+              font-weight: bold;">not</span> part of this process at all; it is
+              all handled externally by the School Office and relevant committees.
+              For any questions regarding any of the above topics, please email
+              the <a href="mailto:csee-schooloffice@essex.ac.uk">School Office</a>
+              directly.
+            </li>
+          </ul>
+        </p>
+      </blockquote>
+
+      <div style="text-align: center; width: 100%; font-size: 1.5em; margin-top: 2em;">
+        <b>•·················•·················•</b>
+        <p> That is all. Good luck! :)</p>
+      </div>
+
+      <!-- ========================== -->
+      <!-- End of assessment document -->
+      <!-- ========================== -->
+
+    </centralcontainer>
+  </body>
